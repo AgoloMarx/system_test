@@ -12,8 +12,8 @@
   },
   "author": "",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/AgoloMarx/system_test/issues"
-  },
-  "homepage": "https://github.com/AgoloMarx/system_test#readme"
+  "devDependencies": {
+    "cucumber": "^4.0.0",
+    "puppeteer": "^1.4.0"
+  }
 }
