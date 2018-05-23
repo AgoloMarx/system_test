@@ -1,0 +1,19 @@
+{
+  "name": "system_test",
+  "version": "1.0.0",
+  "description": "This repository serves as program to test the entire Agolo pipeline from fetching articles, summarization to displaying it on the web application",
+  "main": "index.js",
+  "scripts": {
+    "test": "cucumber-js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AgoloMarx/system_test.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AgoloMarx/system_test/issues"
+  },
+  "homepage": "https://github.com/AgoloMarx/system_test#readme"
+}
