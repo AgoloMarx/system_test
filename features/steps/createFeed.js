@@ -6,7 +6,7 @@ When('he creates {int} feeds in parallel', function (int) {
   this.created = true;
 });
 
-Then('he should see at least {int} article in each feed', function (int) {
+Then('he should see at least {int} article in each feed in {int} minute', function (numArticle, numMinute) {
   // Write code here that turns the phrase above into concrete actions
   assert.equal(true, true);
 });
