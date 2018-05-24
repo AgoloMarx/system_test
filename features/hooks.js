@@ -1,19 +1,18 @@
 
-const { BeforeAll, AfterAll } = require('cucumber');
+const { BeforeAll, Before, AfterAll, After } = require('cucumber');
 const puppeteer = require('puppeteer');
 
-// BeforeAll and AfterAll are run after ALL scenarios. Not each.
-BeforeAll(async () => {
-  // Set up Puppeteer
-  const browser = await puppeteer.launch({
-    headless: false,
-    slowMo: 500,
-  })
+Before(async function() {
+  const browser = await puppeteer.launch({ headless: false, slowMo: 50 });
+  const page = await browser.newPage();
   this.browser = browser;
-});
-
-AfterAll(async () => {
-  // Teardown browser
-  await this.browser.close();
+  this.page = page;
 })
 
+After(async function() {
+  // Teardown browser
+  if (this.browser) {
+    await this.browser.close();
+  }
+  // Cleanup DB
+})
