@@ -3,7 +3,8 @@ const api = require('./api');
 const puppeteer = require('puppeteer');
 
 Before(async function() {
-  const browser = await puppeteer.launch({ headless: false, slowMo: 25 });
+  // const browser = await puppeteer.launch({ headless: false, slowMo: 25 });
+  const browser = await puppeteer.launch({ headless: true });
   const page = await browser.newPage();
   this.browser = browser;
   this.page = page;
