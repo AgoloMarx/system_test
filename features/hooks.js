@@ -2,7 +2,7 @@ const { BeforeAll, Before, AfterAll, After } = require('cucumber');
 const puppeteer = require('puppeteer');
 
 Before(async function() {
-  const browser = await puppeteer.launch({ headless: false, slowMo: 50 });
+  const browser = await puppeteer.launch({ headless: false, slowMo: 25 });
   const page = await browser.newPage();
   this.browser = browser;
   this.page = page;
@@ -11,7 +11,7 @@ Before(async function() {
 After(async function() {
   // Teardown browser
   if (this.browser) {
-    await this.browser.close();
+    // await this.browser.close();
   }
   // Cleanup DB
 })
