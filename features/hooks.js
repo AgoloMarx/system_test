@@ -2,7 +2,7 @@ const { BeforeAll, Before, AfterAll, After } = require('cucumber');
 const api = require('./api');
 const puppeteer = require('puppeteer');
 
-Before(async function() {
+Before({timeout: 60 * 1000 }, async function() {
   // const browser = await puppeteer.launch({ headless: false, slowMo: 25 });
   const browser = await puppeteer.launch({args: ['--no-sandbox, --disable-setuid-sandbox'], headless: true });
   const page = await browser.newPage();
@@ -10,7 +10,7 @@ Before(async function() {
   this.page = page;
 })
 
-After(async function() {
+After({timeout: 60 * 1000 }, async function() {
   // Teardown browser
   if (this.browser) {
     await this.browser.close();
