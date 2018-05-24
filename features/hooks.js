@@ -1,4 +1,3 @@
-
 const { BeforeAll, Before, AfterAll, After } = require('cucumber');
 const puppeteer = require('puppeteer');
 

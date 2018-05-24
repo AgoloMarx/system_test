@@ -6,8 +6,10 @@ Given('a registered Agolo user named {string}', function (userName) {
   this.userEmail = `${userName}${TESTING_PREPEND}`;
 });
 
-When('he logins', async function () {
+// 10 seconds to login
+// TODO: We are NOT running headless & we are using delays. Remove timeout to use default 5s when switching to headless.
+When('he logins', {timeout: 10 * 1000}, async function () {
   // Write code here that turns the phrase above into concrete actions
-  await this.goLoginPage();
+  await this.loginUser();
   this.login = true;
 });
