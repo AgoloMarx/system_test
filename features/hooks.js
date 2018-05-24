@@ -1,4 +1,5 @@
 const { BeforeAll, Before, AfterAll, After } = require('cucumber');
+const api = require('./api');
 const puppeteer = require('puppeteer');
 
 Before(async function() {
@@ -11,7 +12,11 @@ Before(async function() {
 After(async function() {
   // Teardown browser
   if (this.browser) {
-    // await this.browser.close();
+    await this.browser.close();
   }
-  // Cleanup DB
+  // Remove Created Feeds
+  this.createdFeeds.forEach(function(createdFeedId) {
+    // console.log('> Feed ID:', createdFeedId);
+    // console.log('> APi:', api.deleteFeed);
+  });
 })
