@@ -4,7 +4,7 @@ const puppeteer = require('puppeteer');
 
 Before({timeout: 60 * 1000 }, async function() {
   // const browser = await puppeteer.launch({ headless: false, slowMo: 25 });
-  const browser = await puppeteer.launch({args: ['--no-sandbox, --disable-setuid-sandbox, --ignore-certificate-errors'], headless: true });
+  const browser = await puppeteer.launch({ args: ['--no-sandbox, --disable-setuid-sandbox'], headless: true, ignoreHTTPSErrors: true });
   const page = await browser.newPage();
   this.browser = browser;
   this.page = page;
