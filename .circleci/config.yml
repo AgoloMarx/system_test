@@ -36,7 +36,8 @@ jobs:
     docker:
       - image: circleci/node:7.10.1-browsers
     steps:
-     - run: yarn test
+      - checkout
+      - run: yarn test
 workflows:
   version: 2
   integration_test:
