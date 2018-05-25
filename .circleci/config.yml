@@ -26,16 +26,17 @@ jobs:
 
       - run: yarn install
 
-      - persist_to_workspace:
-          root: ~/
-          paths:
-            - repo # persist working directory
+      # - persist_to_workspace:
+      #     root: ~/
+      #     paths:
+      #       - repo # persist working directory
+
       - save_cache:
           paths:
             - node_modules
           key: v1-dependencies-{{ checksum "package.json" }}
       # run tests!
-      # - run: yarn test
+      - run: yarn test
   test:
     docker:
       - image: circleci/node:7.10.1-browsers
