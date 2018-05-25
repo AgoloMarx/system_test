@@ -35,7 +35,7 @@ jobs:
           then
             TEST_ENVIRONMENT=production
           fi
-          echo "Testing in environment ${TEST_ENVIRONMENT}"
+          echo "Testing in environment ${TEST_ENVIRONMENT}. This is the variable ${ENV}"
   # test:
   #   docker:
   #     - image: circleci/node:7.10.1-browsers
