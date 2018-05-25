@@ -35,6 +35,9 @@ jobs:
   test:
     docker:
       - image: circleci/node:7.10.1-browsers
+
+    working_director: ~/repo
+
     steps:
       - checkout
       - run: yarn test
