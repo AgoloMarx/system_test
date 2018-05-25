@@ -38,7 +38,7 @@ jobs:
     steps:
       - checkout
       - run:
-          name: Test
+          name: Integration Test
           command: yarn test
 workflows:
   version: 2
