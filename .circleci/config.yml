@@ -34,15 +34,15 @@ jobs:
           key: v1-dependencies-{{ checksum "package.json" }}
       # run tests!
       - run: |
-        if [ -n "${ENV}" = "production" ]
+        if [ -n "${ENV}" = "production" ];
         then
           echo "Running integration test on production"
           yarn test
-        else if [ -n "${ENV}" = "stage" ]
+        else if [ -n "${ENV}" = "stage" ];
         then
           echo "Running integration test on stage"
           yarn test
-        else if [ -n "${ENV}" = "test" ]
+        else if [ -n "${ENV}" = "test" ];
           echo "Not running integration test. This is just a test."
         else
           echo "ENV variable not set. Please set ENV to 'production', 'stage' or 'test'"
