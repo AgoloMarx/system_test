@@ -33,7 +33,7 @@ jobs:
       # run tests!
       - post:
         - >
-          if [ -n "${ENV}" = "production" ]; then
+          if [ "$ENV" = "production" ]; then
             echo "Environment in production"
             yarn test
           fi
