@@ -31,14 +31,15 @@ jobs:
             - node_modules
           key: v1-dependencies-{{ checksum "package.json" }}
       # run tests!
-      - run: yarn test
+      # - run: yarn test
   test:
-    requires:
-      - build
     steps:
      - run: yarn test
 workflows:
   version: 1
   integration_test:
     jobs:
-      - test
+      - build
+      - test:
+        requires:
+          - build
