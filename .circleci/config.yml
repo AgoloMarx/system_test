@@ -30,12 +30,12 @@ jobs:
           key: v1-dependencies-{{ checksum "package.json" }}
       # run tests!
       - run: |
-        TEST_ENVIRONMENT=staging
-        if [ "$ENV" = "production" ]
-        then
-          TEST_ENVIRONMENT=production
-        fi
-        echo "Testing in environment ${TEST_ENVIRONMENT}"
+          TEST_ENVIRONMENT=staging
+          if [ "$ENV" = "production" ]
+          then
+            TEST_ENVIRONMENT=production
+          fi
+          echo "Testing in environment ${TEST_ENVIRONMENT}"
   # test:
   #   docker:
   #     - image: circleci/node:7.10.1-browsers
