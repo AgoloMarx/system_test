@@ -36,7 +36,7 @@ jobs:
     steps:
      - run: yarn test
 workflows:
-  version: 1
+  version: 2
   integration_test:
     jobs:
       - build
