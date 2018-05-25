@@ -6,7 +6,6 @@ version: 2
 jobs:
   build:
     docker:
-      # specify the version you desire here
       - image: circleci/node:7.10.1-browsers
       # Specify service dependencies here if necessary
       # CircleCI maintains a library of pre-built images
@@ -31,6 +30,15 @@ jobs:
           paths:
             - node_modules
           key: v1-dependencies-{{ checksum "package.json" }}
-        
       # run tests!
       - run: yarn test
+  test:
+    requires:
+      - build
+    steps:
+     - run: yarn test
+workflows:
+  version: 1
+  integration_test:
+    jobs:
+    - test
