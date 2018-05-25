@@ -33,7 +33,8 @@ jobs:
       # run tests!
       - run: |
         TEST_ENVIRONMENT=staging
-        if [ "$ENV" = "production" ]; then
+        if [ "$ENV" = "production" ]
+        then
           TEST_ENVIRONMENT=production
         fi
         echo "Testing in environment ${TEST_ENVIRONMENT}"
