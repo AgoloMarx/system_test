@@ -33,11 +33,11 @@ jobs:
       # run tests!
       - post:
         - >
-          if [ "$ENV" = "production" ]; then
-            echo "Environment in production"
-            yarn test
-          fi
-          echo "Envrionment not set. No tests will run"
+        if [ "$ENV" = "production" ]; then
+          echo "Environment in production"
+          yarn test
+        fi
+        echo "Envrionment not set. No tests will run"
   # test:
   #   docker:
   #     - image: circleci/node:7.10.1-browsers
