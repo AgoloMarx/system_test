@@ -22,31 +22,22 @@ jobs:
           - v1-dependencies-
 
       - run: yarn install
-
       # - persist_to_workspace:
       #     root: ~/
       #     paths:
       #       - repo # persist working directory
-
       - save_cache:
           paths:
             - node_modules
           key: v1-dependencies-{{ checksum "package.json" }}
       # run tests!
-      - run: |
-        if [ -n "${ENV}" = "production" ];
-        then
-          echo "Running integration test on production"
-          yarn test
-        else if [ -n "${ENV}" = "stage" ];
-        then
-          echo "Running integration test on stage"
-          yarn test
-        else if [ -n "${ENV}" = "test" ];
-          echo "Not running integration test. This is just a test."
-        else
-          echo "ENV variable not set. Please set ENV to 'production', 'stage' or 'test'"
-        fi
+      - post:
+        - >
+          if [ -n "${ENV}" = "production" ]; then
+            echo "Environment in production"
+            yarn test
+          fi
+          echo "Envrionment not set. No tests will run"
   # test:
   #   docker:
   #     - image: circleci/node:7.10.1-browsers
