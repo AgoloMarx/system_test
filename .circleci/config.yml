@@ -37,18 +37,18 @@ jobs:
           key: v1-dependencies-{{ checksum "package.json" }}
       # run tests!
       - run: yarn test
-  test:
-    docker:
-      - image: circleci/node:7.10.1-browsers
+  # test:
+  #   docker:
+  #     - image: circleci/node:7.10.1-browsers
 
-    working_directory: ~/repo # Use same WD as build
+  #   working_directory: ~/repo # Use same WD as build
 
-    steps:
-      - attach_workspace:
-          at: ~/
-      - run:
-          name: Integration Test
-          command: yarn test
+  #   steps:
+  #     - attach_workspace:
+  #         at: ~/
+  #     - run:
+  #         name: Integration Test
+  #         command: yarn test
 workflows:
   version: 2
   integration_test:
