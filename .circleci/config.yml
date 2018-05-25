@@ -33,6 +33,8 @@ jobs:
       # run tests!
       # - run: yarn test
   test:
+    docker:
+      - image: circleci/node:7.10.1-browsers
     steps:
      - run: yarn test
 workflows:
