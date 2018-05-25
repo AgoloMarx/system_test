@@ -1,16 +1,13 @@
 # Javascript Node CircleCI 2.0 configuration file
 #
-# Check https://circleci.com/docs/2.0/language-javascript/ for more details
-#
+# Trigger URL to run tests on circle ci is: https://circleci.com/api/v1.1/project/github/system_test/tree/master?circle-token={{CIRCLE_TOKEN}}
+
+
 version: 2
 jobs:
   build:
     docker:
       - image: circleci/node:7.10.1-browsers
-      # Specify service dependencies here if necessary
-      # CircleCI maintains a library of pre-built images
-      # documented at https://circleci.com/docs/2.0/circleci-images/
-      # - image: circleci/mongo:3.4.4
 
     working_directory: ~/repo
 
@@ -36,7 +33,20 @@ jobs:
             - node_modules
           key: v1-dependencies-{{ checksum "package.json" }}
       # run tests!
-      - run: yarn test
+      - run:
+        if [ -n "${ENV}" = "production" ]
+        then
+          echo "Running integration test on production"
+          yarn test
+        else if [ -n "${ENV}" = "stage" ]
+        then
+          echo "Running integration test on stage"
+          yarn test
+        else if [ -n "${ENV}" = "test" ]
+          echo "Not running integration test. This is just a test."
+        else
+          echo "ENV variable not set. Please set ENV to 'production', 'stage' or 'test'"
+        fi
   # test:
   #   docker:
   #     - image: circleci/node:7.10.1-browsers
