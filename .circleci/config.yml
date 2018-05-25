@@ -31,8 +31,7 @@ jobs:
             - node_modules
           key: v1-dependencies-{{ checksum "package.json" }}
       # run tests!
-      - post:
-        - >
+      - run: |
         if [ "$ENV" = "production" ]; then
           echo "Environment in production"
           yarn test
