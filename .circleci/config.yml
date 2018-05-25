@@ -49,11 +49,11 @@ jobs:
   #     - run:
   #         name: Integration Test
   #         command: yarn test
-workflows:
-  version: 2
-  integration_test:
-    jobs:
-      - build
-      - test:
-          requires:
-            - build
+# workflows:
+#   version: 2
+#   integration_test:
+#     jobs:
+#       - build
+#       - test:
+#           requires:
+#             - build
