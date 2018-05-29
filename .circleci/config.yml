@@ -34,7 +34,8 @@ jobs:
           then
             echo "Testing in production!"
             yarn test-production
-          elfi ["${TEST_ENV" = "staging" ]
+          elfi [ "${TEST_ENV" = "staging" ]
+          then
             echo "Testing in staging!"
             yarn test-staging
           fi
