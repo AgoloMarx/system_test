@@ -2,7 +2,7 @@
   "name": "system_test",
   "version": "1.0.0",
   "description": "This repository serves as program to test the entire Agolo pipeline from fetching articles, summarization to displaying it on the web application",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
     "test": "cucumber-js",
     "test-production": "TEST_ENV=production npm run test",
@@ -19,5 +19,9 @@
     "cucumber": "^4.0.0",
     "puppeteer": "^1.4.0"
   },
-  "dependencies": {}
+  "dependencies": {
+    "express": "^4.16.3",
+    "http": "^0.0.0",
+    "moment-timezone": "^0.5.17"
+  }
 }
