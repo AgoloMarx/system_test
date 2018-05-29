@@ -3,13 +3,35 @@ const http = require('http');
 const circleciRouter = require('./controllers/circleci');
 const axios = require('axios');
 const moment = require('moment-timezone');
-const RTMClient = require('@slack/client'); // Real-time Messaging client from slack
+const { RTMClient } = require('@slack/client'); // Real-time Messaging client from slack
 
+
+// Server Initialization
 const app = express();
 const port = process.env.PORT || 3000;
-
-// Create server and web socket
 const server = http.createServer(app);
+// Slack initialization
+const SLACK_TOKEN = process.env.SLACK_TOKEN;
+const rtm = new RTMClient(SLACK_TOKEN);
+rtm.start();
+
+
+rtm.on('message', (event) => {
+
+  // Skip bot's own message.
+  if (event.subtype === 'bot_message' ) {
+    return;
+  }
+  // Receives a message from 'Acceptance Test' channel that is not from a bot.
+  if (event.channel === process.env.CHANNEL_ID) {
+    rtm.sendMessage(`Hello ${event.user}, welcome to the Acceptance Test channel!`);
+  }
+});
+
+
+
+
+
 
 // Say Hello
 app.get('/hello', (req, res) => {
