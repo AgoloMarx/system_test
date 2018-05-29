@@ -38,7 +38,7 @@ jobs:
             elif [ "$TEST_ENV" = "staging" ]; then
               echo "Testing in staging!"
               yarn test-staging
-            fi
+            else
               echo "Test environment not recognized <$TEST_ENV>, try <production> or <staging>"
   # test:
   #   docker:
