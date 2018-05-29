@@ -30,8 +30,8 @@ jobs:
           key: v1-dependencies-{{ checksum "package.json" }}
       # run tests!
       - run: |
-          echo "Testing in ${ENV}!
-          yarn test-${ENV}
+          echo "Testing in ${TEST_ENV}!
+          yarn test-${TEST_ENV}
   # test:
   #   docker:
   #     - image: circleci/node:7.10.1-browsers
