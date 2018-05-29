@@ -29,11 +29,13 @@ jobs:
             - node_modules
           key: v1-dependencies-{{ checksum "package.json" }}
       # run tests!
-      - run: |
+      - run:
+        name: Run Acceptance Tests
+        command: |
           if [ "$TEST_ENV" = "production" ]; then
             echo "Testing in production!"
             yarn test-production
-          elfi [ "$TEST_ENV" = "staging" ]; then
+          elif [ "$TEST_ENV" = "staging" ]; then
             echo "Testing in staging!"
             yarn test-staging
           fi
