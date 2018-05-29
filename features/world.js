@@ -10,7 +10,7 @@ const DASHBOARD_SELECTORS = require('../features/selectors/feed/dashboard');
 const CREATE_SELECTORS = require('../features/selectors/feed/create');
 
 // Paths
-const URL = 'https://stage.agolo.com/';
+
 const LOGIN_PATH = 'login';
 const FEEDS_PATH = 'feeds';
 
@@ -18,7 +18,7 @@ const World = function () {
 
   // Nav functions
   this.goToLogin = async function () {
-    await this.page.goto(`${URL}${LOGIN_PATH}`);
+    await this.page.goto(`${this.url}${LOGIN_PATH}`);
     await this.page.waitForSelector(LOGIN_SELECTORS.LOGIN_FORM);
   }
 

@@ -4,7 +4,9 @@
   "description": "This repository serves as program to test the entire Agolo pipeline from fetching articles, summarization to displaying it on the web application",
   "main": "index.js",
   "scripts": {
-    "test": "cucumber-js"
+    "test": "cucumber-js",
+    "test-prod": "TEST_ENV=production npm run test",
+    "test-stage": "TEST_ENV=staging npm run test"
   },
   "repository": {
     "type": "git",
