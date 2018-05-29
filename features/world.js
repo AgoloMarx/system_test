@@ -53,7 +53,7 @@ const World = function () {
     await this.page.waitForSelector(DASHBOARD_SELECTORS.CREATE_FEED_BUTTON, { visible: true });
     // Prase Url to get FeedId
     const url = await this.page.evaluate('location.href');
-    const feedId = url.split(url.match(`${URL}${FEEDS_PATH}/`)[0])[1];
+    const feedId = url.split(url.match(`${this.url}${FEEDS_PATH}/`)[0])[1];
     this.createdFeeds.push(feedId);
   }
 
