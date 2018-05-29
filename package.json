@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "cucumber-js",
-    "test-prod": "TEST_ENV=production npm run test",
-    "test-stage": "TEST_ENV=staging npm run test"
+    "test-production": "TEST_ENV=production npm run test",
+    "test-staging": "TEST_ENV=staging npm run test"
   },
   "repository": {
     "type": "git",
