@@ -30,7 +30,7 @@ jobs:
           key: v1-dependencies-{{ checksum "package.json" }}
       # run tests!
       - run:
-          echo "Testing in ${TEST_ENV}!
+          echo "Testing in ${TEST_ENV}!"
           yarn test-${TEST_ENV}
   # test:
   #   docker:
