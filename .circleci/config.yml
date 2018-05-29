@@ -30,12 +30,10 @@ jobs:
           key: v1-dependencies-{{ checksum "package.json" }}
       # run tests!
       - run: |
-          if [ "$TEST_ENV" = "production" ]
-          then
+          if [ "$TEST_ENV" = "production" ]; then
             echo "Testing in production!"
             yarn test-production
-          elfi [ "$TEST_ENV" = "staging" ]
-          then
+          elfi [ "$TEST_ENV" = "staging" ]; then
             echo "Testing in staging!"
             yarn test-staging
           fi
