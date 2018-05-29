@@ -3,10 +3,10 @@ const http = require('http');
 const circleciRouter = require('./controllers/circleci');
 const axios = require('axios');
 const moment = require('moment-timezone');
+const RTMClient = require('@slack/client'); // Real-time Messaging client from slack
 
 const app = express();
 const port = process.env.PORT || 3000;
-const TOKEN = '4ed2c8b78e37f8eafb76d1837a1985d0388c1eb1'; // TOOD: REMOVE THIS DANGEROUS!
 
 // Create server and web socket
 const server = http.createServer(app);
@@ -25,7 +25,7 @@ app.get('/hello', (req, res) => {
 // CircleCi build infos
 app.get('/build-latest-status', async (req, res) => {
   try {
-    const url = `https://circleci.com/api/v1.1/project/github/AgoloMarx/system_test/tree/master?circle-token=${TOKEN}`;
+    const url = `https://circleci.com/api/v1.1/project/github/AgoloMarx/system_test/tree/master?circle-token=${process.env.CIRCLECI_TOKEN}`;
     const response = await axios.get(url);
     const responseData = response.data[0];
     const payload = {
