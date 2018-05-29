@@ -30,16 +30,16 @@ jobs:
           key: v1-dependencies-{{ checksum "package.json" }}
       # run tests!
       - run:
-        name: Run Acceptance Tests
-        command: |
-          if [ "$TEST_ENV" = "production" ]; then
-            echo "Testing in production!"
-            yarn test-production
-          elif [ "$TEST_ENV" = "staging" ]; then
-            echo "Testing in staging!"
-            yarn test-staging
-          fi
-            echo "Test environment not recognized <$TEST_ENV>, try <production> or <staging>"
+          name: Run Acceptance Tests
+          command: |
+            if [ "$TEST_ENV" = "production" ]; then
+              echo "Testing in production!"
+              yarn test-production
+            elif [ "$TEST_ENV" = "staging" ]; then
+              echo "Testing in staging!"
+              yarn test-staging
+            fi
+              echo "Test environment not recognized <$TEST_ENV>, try <production> or <staging>"
   # test:
   #   docker:
   #     - image: circleci/node:7.10.1-browsers
