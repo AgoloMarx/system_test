@@ -40,6 +40,7 @@ jobs:
               yarn test-staging
             else
               echo "Test environment not recognized <$TEST_ENV>, try <production> or <staging>"
+            fi
   # test:
   #   docker:
   #     - image: circleci/node:7.10.1-browsers
