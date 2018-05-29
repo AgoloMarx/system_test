@@ -34,12 +34,12 @@ jobs:
           then
             echo "Testing in production!"
             yarn test-production
-          elfi [ "${TEST_ENV" = "staging" ]
+          elfi [ "$TEST_ENV" = "staging" ]
           then
             echo "Testing in staging!"
             yarn test-staging
           fi
-            echo "Test environment not recognized <${TEST_ENV}>, try <production> or <staging>"
+            echo "Test environment not recognized <$TEST_ENV>, try <production> or <staging>"
   # test:
   #   docker:
   #     - image: circleci/node:7.10.1-browsers
