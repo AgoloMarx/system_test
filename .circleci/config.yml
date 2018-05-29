@@ -29,9 +29,16 @@ jobs:
             - node_modules
           key: v1-dependencies-{{ checksum "package.json" }}
       # run tests!
-      - run:
-          echo "Testing in ${TEST_ENV}!"
-          yarn test-${TEST_ENV}
+      - run: |
+          if [ "$TEST_ENV" = "production" ]
+          then
+            echo "Testing in production!"
+            yarn test-production
+          elfi ["${TEST_ENV" = "staging" ]
+            echo "Testing in staging!"
+            yarn test-staging
+          fi
+            echo "Test environment not recognized <${TEST_ENV}>, try <production> or <staging>"
   # test:
   #   docker:
   #     - image: circleci/node:7.10.1-browsers
