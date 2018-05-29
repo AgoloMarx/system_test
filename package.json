@@ -21,8 +21,10 @@
   },
   "dependencies": {
     "@slack/client": "^4.2.2",
+    "dotenv": "^5.0.1",
     "express": "^4.16.3",
     "http": "^0.0.0",
-    "moment-timezone": "^0.5.17"
+    "moment-timezone": "^0.5.17",
+    "underscore": "^1.9.0"
   }
 }
