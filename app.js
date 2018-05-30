@@ -24,7 +24,7 @@ rtm.start(); // starts websocket
 
 rtm.on('message', async (event) => {
 
-  console.log('> event:', event);
+  // console.log('> event:', event);
   // Skip bot's own message.
   if (event.subtype === 'bot_message') {
     return;
@@ -51,16 +51,19 @@ rtm.on('message', async (event) => {
     const responseData = response.data[0];
     // Unwrap data
     const start_time = moment(responseData.start_time).tz('America/New_York').format('LLLL');
+    console.log('> Response data:', responseData);
     const outcome = responseData.outcome;
+    const build_num = responseData.build_num;
+    const build_url = responseData.build_url;
     const last_commit = responseData.all_commit_details[0].committer_name;
     const last_commit_email = responseData.all_commit_details[0].author_email;
     const last_commit_url = responseData.all_commit_details[0].commit_url;
 
     const formattedText = `@${userDisplayName}. I have Successfully retrieved latest build status info: \n\n
-    *Build outcome*: ${outcome}\n
+    *Build outcome ${build_num}*: ${outcome}\n
     *Build start time*: ${start_time}\n
-    *Last committed by*: @${last_commit}\n
-    *Last commited email*: ${last_commit_email}\n
+    *Build Url*: ${build_url}\n
+    *Last committed by*: @${last_commit} | ${last_commit_email}\n
     *Last commit url*: ${last_commit_url} \n
     `
     rtm.sendMessage(formattedText, process.env.CHANNEL_ID);
@@ -106,8 +109,8 @@ rtm.on('message', async (event) => {
 });
 
 
-
-app.post('/build', async (req, res) => {
+// Single point of entry for Slack to hit.
+app.post('/', async (req, res) => {
   try {
     console.log('> Payload:', req.payload);
     // const url = `https://circleci.com/api/v1.1/project/github/AgoloMarx/system_test/tree/master?circle-token=${process.env.CIRCLECI_TOKEN}`;

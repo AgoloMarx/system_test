@@ -1,7 +1,7 @@
 Feature: Create Feed
   In order to have a good experience
   As a user
-  I want to create feeds and see articles quickly
+  I want to create feeds and see summaries quickly
 
   Background:
     Given a registered Agolo user named "Greg"
