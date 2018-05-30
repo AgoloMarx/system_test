@@ -64,7 +64,7 @@ rtm.on('message', async (event) => {
 
     const formattedText = `@${userDisplayName}. I have Successfully retrieved latest build status info: \n\n
     *Build outcome ${build_num}*: ${outcome}\n
-    *Build start time*: ${start_time}\n
+    *Build start time (GMT -4)*: ${start_time}\n
     *Build Url*: ${build_url}\n
     *Last committed by*: @${last_commit} | ${last_commit_email}\n
     *Last commit url*: ${last_commit_url} \n
@@ -115,6 +115,7 @@ rtm.on('message', async (event) => {
 // Single point of entry for Slack to hit.
 app.post('/', async (req, res) => {
   try {
+    console.log('> Request:', req);
     console.log('> Payload:', req.payload);
     // const url = `https://circleci.com/api/v1.1/project/github/AgoloMarx/system_test/tree/master?circle-token=${process.env.CIRCLECI_TOKEN}`;
     // const response = await axios.post(url, {
