@@ -22,7 +22,7 @@ const server = http.createServer(app);
 const SLACK_TOKEN = process.env.SLACK_TOKEN;
 const rtm = new RTMClient(SLACK_TOKEN);
 const web = new WebClient(SLACK_TOKEN);
-rtm.start(); // starts websocket to receive events from slack
+rtm.start();
 
 // Envrionment constants. As per "config.yml", TEST_ENV values
 const PRODUCTION = 'production';
@@ -33,7 +33,9 @@ const WELCOME = `Welcome to the \`Acceptance Test Channel\`. I am Teolo and I'm 
 const SPEAK_MY_LANGUAGE = `Speak my *case-sensitive* language! Try: \n \`Get latest build\`\n \`Run tests\`\n`;
 const SMALL_TALKS_WARN = `Hey hey hey...No small talks. Only tests.`;
 const RETRIEVE_LATEST_BUILD = `Hold on. I am retrieving the latest build status from Circleci...`;
+const REBUILD_ERROR = `I am having some errors rebuilding. Here's the error message:`;
 
+// Starts websocket to listen for events
 rtm.on('message', async (event) => {
 
   // Skip bot's own message.
@@ -73,7 +75,7 @@ rtm.on('message', async (event) => {
     const last_commit_email = responseData.all_commit_details[0].author_email;
     const last_commit_url = responseData.all_commit_details[0].commit_url;
 
-    const formattedText = `@${userDisplayName}. I have Successfully retrieved latest build status info: \n\n
+    const formattedText = `\n\n
     *Build outcome ${build_num}*: ${outcome}\n
     *Build start time (GMT -4)*: ${start_time}\n
     *Build Url*: ${build_url}\n
@@ -88,29 +90,29 @@ rtm.on('message', async (event) => {
       text: `Now we're talking! Ok @${userDisplayName} where do you want to run your tests?`,
       attachments: [
         {
-          "text": "Choose the test environment",
-          "fallback": "You are unable to run tests",
-          "callback_id": "acceptance_test",
-          "color": "#3AA3E3",
-          "attachment_type": "default",
-          "actions": [
+          text: 'Choose the test environment',
+          fallback: 'You are unable to run tests',
+          callback_id: 'acceptance_test',
+          color: '#3AA3E3',
+          attachment_type: 'default',
+          actions: [
             {
-              "name": "test",
-              "text": STAGING,
-              "type": "button",
-              "value": STAGING
+              name: 'test',
+              text: STAGING,
+              type: 'button',
+              value: STAGING
             },
             {
-              "name": "test",
-              "text": PRODUCTION,
-              "style": "danger",
-              "type": "button",
-              "value": PRODUCTION,
-              "confirm": {
-                "title": "Are you sure?",
-                "text": "This may potentially affect the production site. www.agolo.com",
-                "ok_text": "Yes",
-                "dismiss_text": "No"
+              name: 'test',
+              text: PRODUCTION,
+              style: 'danger',
+              type: 'button',
+              value: PRODUCTION,
+              confirm: {
+                title: 'Are you sure?',
+                text: 'This may potentially affect the production site. www.agolo.com',
+                ok_text: 'Yes',
+                dismiss_text: 'No'
               }
             }
           ]
@@ -122,16 +124,6 @@ rtm.on('message', async (event) => {
     rtm.sendMessage(`${SMALL_TALKS_WARN} \n\n${SPEAK_MY_LANGUAGE}`, process.env.CHANNEL_ID);
   }
 });
-
-// app.post('/circleci/notifications', async (req, res) => {
-//   try {
-//     console.log('> req:', req);
-//     console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~');
-//     console.log('> Req payload:', req.payload);
-//   } catch (error) {
-//     console.log('>')
-//   }
-// })
 
 // Single point of entry for Slack to hit.
 app.post('/slack/actions', async (req, res) => {
@@ -150,13 +142,11 @@ app.post('/slack/actions', async (req, res) => {
     const result = response.data;
     const formattedText = `Rebuild successfully triggered at \`${environment} environment\`. \n\n
     *Build Url*: ${result.build_url} \n
-    *Build number*: ${result.build_num} \n
-    `;
+    *Build number*: ${result.build_num} \n`;
     rtm.sendMessage(formattedText, process.env.CHANNEL_ID);
   } catch (error) {
-    rtm.sendMessage(`I am having errors rebuilding. Here's the error message: \n\n ${error.message}`, process.env.CHANNEL_ID);
+    rtm.sendMessage(`${REBUILD_ERROR} \n\n ${error.message}`, process.env.CHANNEL_ID);
   }
-
 });
 
 
@@ -168,4 +158,3 @@ server.listen(port, async (error) => {
   }
   console.log(`Server is ready on http://localhost:${port}`);
 });
-
