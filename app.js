@@ -27,6 +27,10 @@ rtm.start(); // starts websocket to receive events from slack
 const PRODUCTION = 'production';
 const STAGING = 'staging';
 
+// Scripts
+const WELCOME = `Welcome to the \`Acceptance Test Channel\`. I am Teolo and I'm watching you...`
+const SPEAK_MY_LANGUAGE = `Speak my *case-sensitive language! Try: \`Get latest build\`\n \`Run tests\`\n`;
+const SMALL_TALKS_WARN = `No small-talks. Only tests.`;
 
 rtm.on('message', async (event) => {
 
@@ -48,7 +52,7 @@ rtm.on('message', async (event) => {
 
   // Someone joins the channel, welcome him/her.
   if (event.subtype === 'channel_join' && event.channel === process.env.CHANNEL_ID) {
-    rtm.sendMessage(`Hello ${userDisplayName}, welcome to the \`Acceptance Test channel\`. I am Teolo and I'm watching you...`, process.env.CHANNEL_ID);
+    rtm.sendMessage(`Hello ${userDisplayName}. ${WELCOME}\n\n${SPEAK_MY_LANGUAGE}`, process.env.CHANNEL_ID);
   }
 
   // Someone asks for most recent build status.
@@ -116,6 +120,7 @@ rtm.on('message', async (event) => {
     };
     web.chat.postMessage(formattedTextJson);
   }
+  rtm.sendMessage(`${SMALL_TALKS_WARN} \n\n${SPEAK_MY_LANGUAGE}`, process.env.CHANNEL_ID);
 });
 
 
@@ -126,6 +131,7 @@ app.post('/slack/actions', async (req, res) => {
       throw new Error('No request body');
     }
     const payload = req.body.payload;
+    console.log('> Payload:', payload);
     const environment = payload.actions[0].value.toLowerCase();
 
     const url = `https://circleci.com/api/v1.1/project/github/AgoloMarx/system_test/tree/master?circle-token=${process.env.CIRCLECI_TOKEN}`;
