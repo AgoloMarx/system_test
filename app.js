@@ -21,7 +21,11 @@ const server = http.createServer(app);
 const SLACK_TOKEN = process.env.SLACK_TOKEN;
 const rtm = new RTMClient(SLACK_TOKEN);
 const web = new WebClient(SLACK_TOKEN);
-rtm.start(); // starts websocket
+rtm.start(); // starts websocket to receive events from slack
+
+// Envrionment constants. As per "config.yml", TEST_ENV values
+const PRODUCTION = 'production';
+const STAGING = 'staging';
 
 
 rtm.on('message', async (event) => {
@@ -89,16 +93,16 @@ rtm.on('message', async (event) => {
           "actions": [
             {
               "name": "test",
-              "text": "Staging",
+              "text": STAGING,
               "type": "button",
-              "value": "Staging"
+              "value": STAGING
             },
             {
               "name": "test",
-              "text": "Production",
+              "text": PRODUCTION,
               "style": "danger",
               "type": "button",
-              "value": "Production",
+              "value": PRODUCTION,
               "confirm": {
                 "title": "Are you sure?",
                 "text": "This may potentially affect the production site. www.agolo.com",
@@ -118,25 +122,24 @@ rtm.on('message', async (event) => {
 // Single point of entry for Slack to hit.
 app.post('/slack/actions', async (req, res) => {
   try {
-    console.log('> Request:', req);
-    console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~');
-    console.log('> Req body:', req.body);
-    console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~');
-    console.log('> Token? ', req.token);
-    console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~');
-    console.log('> Payload:', req.payload);
-    // const url = `https://circleci.com/api/v1.1/project/github/AgoloMarx/system_test/tree/master?circle-token=${process.env.CIRCLECI_TOKEN}`;
-    // const response = await axios.post(url, {
-    //   build_parameters: {
-    //     TEST_ENV: '',
-    //   }
-    // });
-    // const payload = response.data;
-    // const formattedText = `Rebuild successfully triggered at \`Staging Envrionment\`. \n\n
-    // *Build Url*: ${payload.build_url} \n
-    // *Build number*: ${payload.build_num} \n
-    // `;
-    // rtm.sendMessage(formattedText, process.env.CHANNEL_ID);
+    if (!req.body) {
+      throw new Error('No request body');
+    }
+    const payload = req.body.payload;
+    const environment = payload.actions.value.toLowerCase();
+
+    const url = `https://circleci.com/api/v1.1/project/github/AgoloMarx/system_test/tree/master?circle-token=${process.env.CIRCLECI_TOKEN}`;
+    const response = await axios.post(url, {
+      build_parameters: {
+        TEST_ENV: environment,
+      }
+    });
+    const result = response.data;
+    const formattedText = `Rebuild successfully triggered at \`${envrionment} Envrionment\`. \n\n
+    *Build Url*: ${result.build_url} \n
+    *Build number*: ${result.build_num} \n
+    `;
+    rtm.sendMessage(formattedText, process.env.CHANNEL_ID);
   } catch (error) {
     rtm.sendMessage(`I am having errors rebuilding. Here's the error message: \n\n ${error.message}`, process.env.CHANNEL_ID);
   }
