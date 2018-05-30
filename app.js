@@ -29,7 +29,7 @@ const STAGING = 'staging';
 
 // Scripts
 const WELCOME = `Welcome to the \`Acceptance Test Channel\`. I am Teolo and I'm watching you...`
-const SPEAK_MY_LANGUAGE = `Speak my *case-sensitive language! Try: \`Get latest build\`\n \`Run tests\`\n`;
+const SPEAK_MY_LANGUAGE = `Speak my *case-sensitive language! Try: \n \`Get latest build\`\n \`Run tests\`\n`;
 const SMALL_TALKS_WARN = `No small-talks. Only tests.`;
 
 rtm.on('message', async (event) => {
@@ -80,10 +80,8 @@ rtm.on('message', async (event) => {
     *Last commit url*: ${last_commit_url} \n
     `
     rtm.sendMessage(formattedText, process.env.CHANNEL_ID);
-  }
 
-  // Someone wants to trigger a test
-  if (event.text === 'Run tests') {
+  } else if (event.text === 'Run tests') {
     const formattedTextJson = {
       channel: process.env.CHANNEL_ID,
       text: `Ok @${userDisplayName} where do you want to run your tests?`,
@@ -119,8 +117,9 @@ rtm.on('message', async (event) => {
       ]
     };
     web.chat.postMessage(formattedTextJson);
+  } else {
+    rtm.sendMessage(`${SMALL_TALKS_WARN} \n\n${SPEAK_MY_LANGUAGE}`, process.env.CHANNEL_ID);
   }
-  rtm.sendMessage(`${SMALL_TALKS_WARN} \n\n${SPEAK_MY_LANGUAGE}`, process.env.CHANNEL_ID);
 });
 
 
