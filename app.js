@@ -64,7 +64,6 @@ rtm.on('message', async (event) => {
     const responseData = response.data[0];
     // Unwrap data
     const start_time = moment(responseData.start_time).tz('America/New_York').format('LLLL');
-    console.log('> Response data:', responseData);
     const outcome = responseData.outcome ? responseData.outcome : 'In progress...';
     const build_num = responseData.build_num;
     const build_url = responseData.build_url;
