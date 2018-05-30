@@ -116,6 +116,9 @@ rtm.on('message', async (event) => {
 app.post('/', async (req, res) => {
   try {
     console.log('> Request:', req);
+    console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~');
+    console.log('> Req body:',)
+    console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~');
     console.log('> Payload:', req.payload);
     // const url = `https://circleci.com/api/v1.1/project/github/AgoloMarx/system_test/tree/master?circle-token=${process.env.CIRCLECI_TOKEN}`;
     // const response = await axios.post(url, {
