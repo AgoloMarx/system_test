@@ -123,13 +123,15 @@ rtm.on('message', async (event) => {
   }
 });
 
-app.post('/circleci/notifications', async (req, res) => {
-  try {
-    console.log('> req:', req);
-    console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~');
-    console.log('> Req payload:', req.payload);
-  }
-})
+// app.post('/circleci/notifications', async (req, res) => {
+//   try {
+//     console.log('> req:', req);
+//     console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~');
+//     console.log('> Req payload:', req.payload);
+//   } catch (error) {
+//     console.log('>')
+//   }
+// })
 
 // Single point of entry for Slack to hit.
 app.post('/slack/actions', async (req, res) => {
