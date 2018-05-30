@@ -31,6 +31,7 @@ const STAGING = 'staging';
 const WELCOME = `Welcome to the \`Acceptance Test Channel\`. I am Teolo and I'm watching you...`
 const SPEAK_MY_LANGUAGE = `Speak my *case-sensitive* language! Try: \n \`Get latest build\`\n \`Run tests\`\n`;
 const SMALL_TALKS_WARN = `Hey hey hey...No small-talks. Only tests.`;
+const RETRIEVE_LATEST_BUILD = `Hold on. I am retrieving the latest build status...`;
 
 rtm.on('message', async (event) => {
 
@@ -58,7 +59,7 @@ rtm.on('message', async (event) => {
   // Someone asks for most recent build status.
   // TODO: upgrade to regex
   if (event.text === 'Get latest build') {
-    rtm.sendMessage(`Hold on. I am retrieving the latest build status...`, process.env.CHANNEL_ID);
+    rtm.sendMessage(RETRIEVE_LATEST_BUILD, process.env.CHANNEL_ID);
     const url = `https://circleci.com/api/v1.1/project/github/AgoloMarx/system_test/tree/master?circle-token=${process.env.CIRCLECI_TOKEN}`;
     const response = await axios.get(url);
     const responseData = response.data[0];
@@ -83,7 +84,7 @@ rtm.on('message', async (event) => {
   } else if (event.text === 'Run tests') {
     const formattedTextJson = {
       channel: process.env.CHANNEL_ID,
-      text: `Ok @${userDisplayName} where do you want to run your tests?`,
+      text: `Now we're talking! Ok @${userDisplayName} where do you want to run your tests?`,
       attachments: [
         {
           "text": "Choose the test environment",
@@ -128,10 +129,10 @@ app.post('/slack/actions', async (req, res) => {
     if (!req.body) {
       throw new Error('No request body');
     }
-    const payload = req.body.payload;
+    const payload = JSON.parse(req.body.payload);
     console.log('> Payload:', payload);
-    console.log('> Payload actions:', payload.data);
-    const environment = payload.data.actions[0].value.toLowerCase();
+    console.log('> Payload actions:', payload);
+    const environment = payload.actions[0].value.toLowerCase();
 
     const url = `https://circleci.com/api/v1.1/project/github/AgoloMarx/system_test/tree/master?circle-token=${process.env.CIRCLECI_TOKEN}`;
     const response = await axios.post(url, {
