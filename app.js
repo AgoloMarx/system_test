@@ -130,10 +130,8 @@ app.post('/slack/actions', async (req, res) => {
       throw new Error('No request body');
     }
     const payload = JSON.parse(req.body.payload);
-    console.log('> Payload:', payload);
-    console.log('> Payload actions:', payload);
     const environment = payload.actions[0].value.toLowerCase();
-
+    console.log('> Envrionment!', environment);
     const url = `https://circleci.com/api/v1.1/project/github/AgoloMarx/system_test/tree/master?circle-token=${process.env.CIRCLECI_TOKEN}`;
     const response = await axios.post(url, {
       build_parameters: {
