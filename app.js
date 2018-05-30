@@ -107,20 +107,21 @@ rtm.on('message', async (event) => {
 
 
 
-app.post('/build-staging', async (req, res) => {
+app.post('/build', async (req, res) => {
   try {
-    const url = `https://circleci.com/api/v1.1/project/github/AgoloMarx/system_test/tree/master?circle-token=${process.env.CIRCLECI_TOKEN}`;
-    const response = await axios.post(url, {
-      build_parameters: {
-        TEST_ENV: '',
-      }
-    });
-    const payload = response.data;
-    const formattedText = `Rebuild successfully triggered at \`Staging Envrionment\`. \n\n
-    *Build Url*: ${payload.build_url} \n
-    *Build number*: ${payload.build_num} \n
-    `;
-    rtm.sendMessage(formattedText, process.env.CHANNEL_ID);
+    console.log('> Payload:', req.payload);
+    // const url = `https://circleci.com/api/v1.1/project/github/AgoloMarx/system_test/tree/master?circle-token=${process.env.CIRCLECI_TOKEN}`;
+    // const response = await axios.post(url, {
+    //   build_parameters: {
+    //     TEST_ENV: '',
+    //   }
+    // });
+    // const payload = response.data;
+    // const formattedText = `Rebuild successfully triggered at \`Staging Envrionment\`. \n\n
+    // *Build Url*: ${payload.build_url} \n
+    // *Build number*: ${payload.build_num} \n
+    // `;
+    // rtm.sendMessage(formattedText, process.env.CHANNEL_ID);
   } catch (error) {
     rtm.sendMessage(`I am having errors rebuilding. Here's the error message: \n\n ${error.message}`, process.env.CHANNEL_ID);
   }
