@@ -131,7 +131,6 @@ app.post('/slack/actions', async (req, res) => {
     }
     const payload = JSON.parse(req.body.payload);
     const environment = payload.actions[0].value.toLowerCase();
-    console.log('> Envrionment!', environment);
     const url = `https://circleci.com/api/v1.1/project/github/AgoloMarx/system_test/tree/master?circle-token=${process.env.CIRCLECI_TOKEN}`;
     const response = await axios.post(url, {
       build_parameters: {
@@ -139,7 +138,9 @@ app.post('/slack/actions', async (req, res) => {
       }
     });
     const result = response.data;
-    const formattedText = `Rebuild successfully triggered at \`${envrionment} Envrionment\`. \n\n
+    console.log('> Response:', response);
+    console.log('> Result:', result);
+    const formattedText = `Rebuild successfully triggered at \`${environment} Envrionment\`. \n\n
     *Build Url*: ${result.build_url} \n
     *Build number*: ${result.build_num} \n
     `;
