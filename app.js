@@ -30,8 +30,8 @@ const STAGING = 'staging';
 // Scripts
 const WELCOME = `Welcome to the \`Acceptance Test Channel\`. I am Teolo and I'm watching you...`
 const SPEAK_MY_LANGUAGE = `Speak my *case-sensitive* language! Try: \n \`Get latest build\`\n \`Run tests\`\n`;
-const SMALL_TALKS_WARN = `Hey hey hey...No small-talks. Only tests.`;
-const RETRIEVE_LATEST_BUILD = `Hold on. I am retrieving the latest build status...`;
+const SMALL_TALKS_WARN = `Hey hey hey...No small talks. Only tests.`;
+const RETRIEVE_LATEST_BUILD = `Hold on. I am retrieving the latest build status from Circleci...`;
 
 rtm.on('message', async (event) => {
 
@@ -138,9 +138,7 @@ app.post('/slack/actions', async (req, res) => {
       }
     });
     const result = response.data;
-    console.log('> Response:', response);
-    console.log('> Result:', result);
-    const formattedText = `Rebuild successfully triggered at \`${environment} Envrionment\`. \n\n
+    const formattedText = `Rebuild successfully triggered at \`${environment} environment\`. \n\n
     *Build Url*: ${result.build_url} \n
     *Build number*: ${result.build_num} \n
     `;
