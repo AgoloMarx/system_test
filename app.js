@@ -131,6 +131,7 @@ app.post('/slack/actions', async (req, res) => {
     }
     const payload = req.body.payload;
     console.log('> Payload:', payload);
+    console.log('> Payload actions:', payload.actions);
     const environment = payload.actions[0].value.toLowerCase();
 
     const url = `https://circleci.com/api/v1.1/project/github/AgoloMarx/system_test/tree/master?circle-token=${process.env.CIRCLECI_TOKEN}`;
