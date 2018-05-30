@@ -72,6 +72,7 @@ rtm.on('message', async (event) => {
     rtm.sendMessage(formattedText, process.env.CHANNEL_ID);
   }
 
+  // Someone wants to trigger a test
   if (event.text === 'Run tests') {
     const formattedTextJson = {
       channel: process.env.CHANNEL_ID,
@@ -113,7 +114,7 @@ rtm.on('message', async (event) => {
 
 
 // Single point of entry for Slack to hit.
-app.post('/', async (req, res) => {
+app.post('/slack/actions', async (req, res) => {
   try {
     console.log('> Request:', req);
     console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~');
