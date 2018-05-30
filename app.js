@@ -29,7 +29,7 @@ const STAGING = 'staging';
 
 // Scripts
 const WELCOME = `Welcome to the \`Acceptance Test Channel\`. I am Teolo and I'm watching you...`
-const SPEAK_MY_LANGUAGE = `Speak my *case-sensitive language! Try: \n \`Get latest build\`\n \`Run tests\`\n`;
+const SPEAK_MY_LANGUAGE = `Speak my *case-sensitive* language! Try: \n \`Get latest build\`\n \`Run tests\`\n`;
 const SMALL_TALKS_WARN = `No small-talks. Only tests.`;
 
 rtm.on('message', async (event) => {
