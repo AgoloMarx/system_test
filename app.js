@@ -35,6 +35,9 @@ rtm.on('message', async (event) => {
   const slackUserList = slackUsers.members;
   // Find user of Message.
   const user = slackUserList.find((user) => user.id === event.user);
+  if (!user) {
+    return;
+  }
   const userDisplayName = user.profile.display_name;
 
   // Someone joins the channel, welcome him/her.
@@ -52,7 +55,7 @@ rtm.on('message', async (event) => {
     // Unwrap data
     const start_time = moment(responseData.start_time).tz('America/New_York').format('LLLL');
     console.log('> Response data:', responseData);
-    const outcome = responseData.outcome;
+    const outcome = responseData.outcome ? responseData.outcome : 'In progress...';
     const build_num = responseData.build_num;
     const build_url = responseData.build_url;
     const last_commit = responseData.all_commit_details[0].committer_name;
