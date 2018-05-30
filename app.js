@@ -30,7 +30,7 @@ const STAGING = 'staging';
 // Scripts
 const WELCOME = `Welcome to the \`Acceptance Test Channel\`. I am Teolo and I'm watching you...`
 const SPEAK_MY_LANGUAGE = `Speak my *case-sensitive* language! Try: \n \`Get latest build\`\n \`Run tests\`\n`;
-const SMALL_TALKS_WARN = `No small-talks. Only tests.`;
+const SMALL_TALKS_WARN = `Hey hey hey...No small-talks. Only tests.`;
 
 rtm.on('message', async (event) => {
 
@@ -130,8 +130,8 @@ app.post('/slack/actions', async (req, res) => {
     }
     const payload = req.body.payload;
     console.log('> Payload:', payload);
-    console.log('> Payload actions:', payload.actions);
-    const environment = payload.actions[0].value.toLowerCase();
+    console.log('> Payload actions:', payload.data);
+    const environment = payload.data.actions[0].value.toLowerCase();
 
     const url = `https://circleci.com/api/v1.1/project/github/AgoloMarx/system_test/tree/master?circle-token=${process.env.CIRCLECI_TOKEN}`;
     const response = await axios.post(url, {
