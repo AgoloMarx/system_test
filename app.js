@@ -80,7 +80,7 @@ rtm.on('message', async (event) => {
         {
           "text": "Choose the test environment",
           "fallback": "You are unable to run tests",
-          "callback_id": "wopr_game",
+          "callback_id": "acceptance_test",
           "color": "#3AA3E3",
           "attachment_type": "default",
           "actions": [
