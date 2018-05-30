@@ -1,3 +1,4 @@
+// Deployed at https://teolo.herokuapp.com
 const express = require('express');
 const http = require('http');
 const circleciRouter = require('./controllers/circleci');
@@ -35,7 +36,6 @@ const RETRIEVE_LATEST_BUILD = `Hold on. I am retrieving the latest build status 
 
 rtm.on('message', async (event) => {
 
-  // console.log('> event:', event);
   // Skip bot's own message.
   if (event.subtype === 'bot_message') {
     return;
@@ -44,6 +44,7 @@ rtm.on('message', async (event) => {
   // Find all members.
   const slackUsers = await web.users.list();
   const slackUserList = slackUsers.members;
+
   // Find user of Message.
   const user = slackUserList.find((user) => user.id === event.user);
   if (!user) {
@@ -122,6 +123,13 @@ rtm.on('message', async (event) => {
   }
 });
 
+app.post('/circleci/notifications', async (req, res) => {
+  try {
+    console.log('> req:', req);
+    console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~');
+    console.log('> Req payload:', req.payload);
+  }
+})
 
 // Single point of entry for Slack to hit.
 app.post('/slack/actions', async (req, res) => {

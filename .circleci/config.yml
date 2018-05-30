@@ -41,6 +41,9 @@ jobs:
             else
               echo "Test environment not recognized <$TEST_ENV>, try <production> or <staging>"
             fi
+notify:
+  webhooks:
+    - url: https://teolo.herokuapp.com/circleci/notifications
   # test:
   #   docker:
   #     - image: circleci/node:7.10.1-browsers
