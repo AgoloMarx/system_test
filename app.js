@@ -4,6 +4,7 @@ const circleciRouter = require('./controllers/circleci');
 const axios = require('axios');
 const moment = require('moment-timezone');
 const { RTMClient, WebClient } = require('@slack/client');
+const bodyParser = require('body-parser');
 
 // For local runs. Gives us access to the local .env file
 if (!process.env.NODE_ENV) {
@@ -12,6 +13,7 @@ if (!process.env.NODE_ENV) {
 
 // Server Initialization
 const app = express();
+app.use(bodyParser.urlencoded({ extended: false }));
 const port = process.env.PORT || 3000;
 const server = http.createServer(app);
 
@@ -42,7 +44,7 @@ rtm.on('message', async (event) => {
 
   // Someone joins the channel, welcome him/her.
   if (event.subtype === 'channel_join' && event.channel === process.env.CHANNEL_ID) {
-    rtm.sendMessage(`Hello ${userDisplayName}, welcome to the Acceptance Test channel. I am Teolo and I'm watching you...`, process.env.CHANNEL_ID);
+    rtm.sendMessage(`Hello ${userDisplayName}, welcome to the \`Acceptance Test channel\`. I am Teolo and I'm watching you...`, process.env.CHANNEL_ID);
   }
 
   // Someone asks for most recent build status.
